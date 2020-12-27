@@ -1,8 +1,7 @@
 name: path_navigator
 description: A new Flutter package project.
 version: 0.1.0
-author: null
-homepage: https
+homepage: https://github.com/dreamsoftin/path_navigator
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
