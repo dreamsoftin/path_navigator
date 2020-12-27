@@ -16,7 +16,8 @@ class PathNavigatorState extends ChangeNotifier {
   init(PathModule appModule) {
     this.module = appModule;
     routeStack =
-        module.routes.first.builder.call(module.routes.first.arguments);
+        module.rootPath;
+        notifyListeners();
   }
 
   Path get activeMainRoute => routeStack;
@@ -165,7 +166,7 @@ class PathNavigatorState extends ChangeNotifier {
   }
 
   Path parse(List<String> segments) {
-    if (segments.isEmpty) return module.routes.first.builder(Object());
+    if (segments.isEmpty) return module.rootPath;
     // CustomPath path;
     String pathName = segments.first;
     segments = segments.sublist(1);
