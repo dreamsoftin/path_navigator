@@ -15,12 +15,19 @@ class PathNavigatorState extends ChangeNotifier {
   // }
   init(PathModule appModule) {
     this.module = appModule;
-    routeStack =
-        module.rootPath;
-        notifyListeners();
+    routeStack = module.rootPath;
+    notifyListeners();
   }
 
   Path get activeMainRoute => routeStack;
+  List<Path> get activeSubRouteList {
+    List<Path> list = [];
+    if (routeStack != null) {
+      list.addAll(transform(routeStack));
+    }
+    return list;
+  }
+
   List<Path> get activeRouteList {
     var list = [routeStack];
     if (routeStack != null) {
@@ -43,8 +50,7 @@ class PathNavigatorState extends ChangeNotifier {
     return list;
   }
 
-  Future<bool> pushAndRemoveUntil(
-      Path path, bool Function(Path) shouldPop,
+  Future<bool> pushAndRemoveUntil(Path path, bool Function(Path) shouldPop,
       {Map<String, dynamic> args}) async {
     bool canPop = await activeMainRoute.canRemove();
     if (!canPop) return false;
@@ -57,7 +63,7 @@ class PathNavigatorState extends ChangeNotifier {
       routeStack = path;
     } else
       addSubRoute(activeMainRoute, path);
-      return true;
+    return true;
   }
 
   Path getLeafRoute(Path path) {
@@ -67,8 +73,7 @@ class PathNavigatorState extends ChangeNotifier {
       return getLeafRoute(path.subRoute);
   }
 
-  Future<void> pushNewRoute(Path path,
-      {Map<String, dynamic> args}) async {
+  Future<void> pushNewRoute(Path path, {Map<String, dynamic> args}) async {
     // _addSubRoute(path);
     bool canPop = await activeMainRoute.canRemove();
     if (!canPop) return;
@@ -81,8 +86,7 @@ class PathNavigatorState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> pushSubRoute(Path path,
-      {Map<String, dynamic> args}) async {
+  Future<void> pushSubRoute(Path path, {Map<String, dynamic> args}) async {
     // _addSubRoute(path);
     path.arguments = path.arguments ?? {};
     if (args != null) {
@@ -94,8 +98,7 @@ class PathNavigatorState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> pushSubAndReplace(Path path,
-      {Map<String, dynamic> args}) async {
+  Future<void> pushSubAndReplace(Path path, {Map<String, dynamic> args}) async {
     // _addSubRoute(path);
     path.arguments = path.arguments ?? {};
     if (args != null) {

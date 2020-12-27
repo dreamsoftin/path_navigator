@@ -127,7 +127,7 @@ class _SidePushScaffoldState extends State<SidePushScaffold> {
   List<Path> lastThreeRoutes() {
     // CustomRouteState routeState = locator.get<CustomRouteState>();
 
-    return PathNavigator.activeRouteList;
+    return PathNavigator.activeSubRouteList;
   }
 }
 
