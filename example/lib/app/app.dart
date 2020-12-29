@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:path_navigator/path_navigator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -127,7 +126,7 @@ class _SidePushScaffoldState extends State<SidePushScaffold> {
   List<Path> lastThreeRoutes() {
     // CustomRouteState routeState = locator.get<CustomRouteState>();
 
-    return PathNavigator.activeSubRouteList;
+    return PathNavigator.activeRouteList;
   }
 }
 
