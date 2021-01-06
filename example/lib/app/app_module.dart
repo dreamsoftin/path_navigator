@@ -27,7 +27,10 @@ class EntyPint extends StatelessWidget {
     // print("Main Size : ${MediaQuery.of(context).size.width}");
     return ResponsiveScaffold(
       drawer: buildDrawer(),
-      body: SidePushScaffold(),
+      body: // SidePushScaffold(),
+      Stack(
+        children: PathNavigator.activeRouteList.map((e) => e.pageBuilder(context, e)).toList(),
+      )
     );
     // return ResponsiveBuilder(builder: (context, sizingInfo) {
     //   switch (sizingInfo.deviceScreenType) {

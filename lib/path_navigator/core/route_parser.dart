@@ -29,9 +29,14 @@ class PathInformationParser extends RouteInformationParser<Path> {
 class PathRouterDelegate extends RouterDelegate<Path>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<Path> {
   // final GlobalKey<NavigatorState> navigatorKey;
-
+  
   final PathNavigatorState routeState;
-
+@override
+  Future<bool> popRoute() async{
+      routeState.pop();
+        notifyListeners();
+   return true;
+  }
   Path get currentConfiguration {
     return routeState.activeMainRoute;
   }
@@ -45,7 +50,9 @@ class PathRouterDelegate extends RouterDelegate<Path>
     return //AppShell(routeState: routeState);
         Navigator(
       key: routeState.navigatorKey,
-      pages: [
+      pages: //routeState.activeRouteList.map((e) =>  MaterialPage(child: e.pageBuilder(context, e), maintainState: false)).toList()
+      
+       [
         MaterialPage(child: routeState?.module?.child, maintainState: false)
       ],
       onPopPage: (route, result) {
@@ -54,7 +61,7 @@ class PathRouterDelegate extends RouterDelegate<Path>
         if (!route.didPop(result)) {
           return false;
         }
-        return true;
+        return false;
       },
     );
   }
