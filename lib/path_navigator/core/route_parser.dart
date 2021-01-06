@@ -35,7 +35,7 @@ class PathRouterDelegate extends RouterDelegate<Path>
   Future<bool> popRoute() async{
       routeState.pop();
         notifyListeners();
-   return true;
+   return routeState.activeSubRouteList.isNotEmpty;
   }
   Path get currentConfiguration {
     return routeState.activeMainRoute;
