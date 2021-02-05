@@ -92,8 +92,7 @@ class PathNavigatorState extends ChangeNotifier {
     if (args != null) {
       path.arguments.addAll(args);
     }
-    bool canPop = await currentRoute.canRemove();
-    if (!canPop) return;
+
     addSubRoute(activeMainRoute, path);
     notifyListeners();
   }
