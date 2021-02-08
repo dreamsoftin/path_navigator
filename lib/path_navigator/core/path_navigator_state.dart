@@ -132,18 +132,18 @@ class PathNavigatorState extends ChangeNotifier {
 
   void addSubRoute(Path main, Path newRoute) async {
     int current = main.subRouteBuilder.indexWhere((element) {
-      print(
-          "addSubRoute : ${element.pathName} == ${newRoute.routeName}  ==> ${element.pathName == newRoute.routeName}");
+      // print(
+      //     "addSubRoute : ${element.pathName} == ${newRoute.routeName}  ==> ${element.pathName == newRoute.routeName}");
       return element.pathName == newRoute.routeName;
     });
-    print(
-        "addSubRoute :  ${main.routeName} ===> ${newRoute.routeName} $current");
+    // print(
+    //     "addSubRoute :  ${main.routeName} ===> ${newRoute.routeName} $current");
     if (main.subRoute == null || main.subRoute == newRoute || current != -1) {
-      print("addSubRoute : Inside Replace  ${main.routeName} ");
+      // print("addSubRoute : Inside Replace  ${main.routeName} ");
       main.subRoute = newRoute;
     } else {
       // if (current < 0)
-      print("addSubRoute : Inside Call");
+      // print("addSubRoute : Inside Call");
       addSubRoute(main.subRoute, newRoute);
       // else
       //   main.subRoute = newRoute;
@@ -159,7 +159,7 @@ class PathNavigatorState extends ChangeNotifier {
       return true;
     } else {
       bool shouldRemove = _removeLast(main.subRoute);
-      print("_removeLast : ${main.routeName} ==>$shouldRemove");
+      // print("_removeLast : ${main.routeName} ==>$shouldRemove");
       if (shouldRemove) {
         main.subRoute = null;
       }
@@ -206,22 +206,22 @@ class PathNavigatorState extends ChangeNotifier {
       if (rawName.startsWith(RegExp(r"^/"))) {
         rawName = rawName.substring(1);
       }
-      print("PARSING $pathBuilder");
+      // print("PARSING $pathBuilder");
       final regExp = RegExp(
         "^${prepareToRegex(rawName)}\$",
         caseSensitive: true,
       );
-      print("============================");
-      print("Route Name         : $rawName");
-      print("Regular Expression : ${regExp.pattern}");
-      print("Url                : $url");
+      // print("============================");
+      // print("Route Name         : $rawName");
+      // print("Regular Expression : ${regExp.pattern}");
+      // print("Url                : $url");
       var match = regExp.firstMatch(url);
-      print("First Match        : ${match?.start} to ${match?.end}");
+      // print("First Match        : ${match?.start} to ${match?.end}");
       if (match != null) {
         count = 0;
-        print("     **********************************");
+        // print("     **********************************");
         String matchString = url.substring(match.start, match.end);
-        print("     Match String    :$matchString");
+        // print("     Match String    :$matchString");
         builder = pathBuilder;
         List<String> patternsegments = rawName.split("/");
         List<String> valueSegments = matchString.split("/");
@@ -229,26 +229,26 @@ class PathNavigatorState extends ChangeNotifier {
           String pattern = patternsegments[i];
           String urlValue = valueSegments[i];
           if (pattern.contains(":")) {
-            print("     argumentExtraction    :$pattern");
+            // print("     argumentExtraction    :$pattern");
 
             String value = urlValue;
             String id = pattern.replaceAll(":", "");
-            print("     ID                   :$id");
-            print("     value                :$value");
+            // print("     ID                   :$id");
+            // print("     value                :$value");
             builder.arguments = builder.arguments ?? {};
             builder.arguments[id] = value;
             arguments[id] = value;
           }
           count++;
         }
-        print("UEL BEFORE $url");
-        print("Url After $url");
-        print("     **********************************");
+        // print("UEL BEFORE $url");
+        // print("Url After $url");
+        // print("     **********************************");
         break;
         // url = url.replaceFirst(argumentExtraction+"/$value", "");
       }
-      print("ORL AFER $url");
-      print("============================");
+      // print("ORL AFER $url");
+      // print("============================");
     }
 
     if (builder == null) return;
